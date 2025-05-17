@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HULKCoin Staking Vorschau</title>
+<!-- Orbitron Schrift für Sci-Fi Stil -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+<!-- Konfetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0d0d0d;
+    color: #aaffaa;
+    background: radial-gradient(circle at center, #0d0d0d, #000000);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    background: rgba(0,0,0,0.25);
+    border: 2px solid #33ff33;
+    border-radius: 15px;
+    padding: 30px 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 25px #33ff33;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 2.8em;
+    margin-bottom: 5px;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #33ff33, 0 0 30px #66ff66;
+  }
+  header .highlight {
+    color: #33ff33;
+  }
+  button {
+    font-family: inherit;
+    font-size: 1.3em;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    color: #0d0d0d;
+    background: linear-gradient(45deg, #33ff33, #00aa00);
+    border-radius: 7px;
+    box-shadow: 0 0 12px #33ff33;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 15px 0 30px 0;
+    user-select: none;
+  }
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #00ff00, 0 0 35px #33ff33;
+  }
+  .status, p {
+    font-size: 1.1em;
+    margin: 10px 0;
+  }
+  .limit-bar {
+    width: 100%;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0 15px 0;
+    height: 22px;
+  }
+  .limit-fill {
+    width: 23%;
+    height: 100%;
+    background: linear-gradient(90deg, #33ff33, #00aa00);
+    transition: width 0.5s;
+  }
+  footer p {
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #22aa22;
+  }
+  /* Smash Button Animation */
+  .smash-btn.active {
+    animation: shake 0.5s;
+  }
+  @keyframes shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, -5px) rotate(-5deg); }
+    50% { transform: translate(-5px, 5px) rotate(5deg); }
+    75% { transform: translate(5px, 5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>HULK <span class="highlight">Staking</span></h1>
+    </header>
+
+    <button id="connectButton">Connect Wallet</button>
+
+    <div id="walletInfo" style="display:none;">
+      <p>Connected: <span id="walletAddress">0x1234...abcd</span></p>
+      <p class="status"><strong>Staked NFTs:</strong> <span id="stakedNFTs">2</span></p>
+      <p class="status"><strong>HULK Rewards:</strong> <span id="hulkRewards">1234</span> HULK</p>
+
+      <h2>Monthly HULK Limit</h2>
+      <div class="limit-bar">
+        <div id="limitFill" class="limit-fill"></div>
+      </div>
+      <p><span id="limitInfo">2345 / 10000</span> HULK used this month</p>
+
+      <h2>Community NFT Status</h2>
+      <p><span style="color:#55ff55;">1% revenue share</span> (annual payout included)</p>
+
+      <h2>Burn Status</h2>
+      <p>Total Burned: <span id="burnedAmount">50000</span> HULK</p>
+
+      <button id="smashButton" class="smash-btn">SMASH</button>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 HULKCoin. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const connectButton = document.getElementById('connectButton');
+    const walletInfo = document.getElementById('walletInfo');
+    const smashButton = document.getElementById('smashButton');
+    const limitFill = document.getElementById('limitFill');
+    const limitInfo = document.getElementById('limitInfo');
+
+    // Dummy Daten (kann durch Blockchain ersetzt werden)
+    let dummyUsed = 2345;
+    let dummyLimit = 10000;
+
+    connectButton.addEventListener('click', () => {
+      // Simuliere Wallet-Verbindung
+      connectButton.style.display = 'none';
+      walletInfo.style.display = 'block';
+
+      // Limit Fortschritt anzeigen
+      let percent = (dummyUsed / dummyLimit) * 100;
+      limitFill.style.width = percent + '%';
+      limitInfo.textContent = `${dummyUsed} / ${dummyLimit}`;
+    });
+
+    smashButton.addEventListener('click', () => {
+      // Konfetti Animation
+      confetti({
+        particleCount: 150,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+      smashButton.classList.add('active');
+      setTimeout(() => smashButton.classList.remove('active'), 800);
+    });
+  </script>
+</body>
+</html>
